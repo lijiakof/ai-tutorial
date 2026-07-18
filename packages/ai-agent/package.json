@@ -1,0 +1,17 @@
+{
+  "name": "ai-agent",
+  "version": "0.1.0",
+  "description": "AI Agent",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jay",
+  "license": "ISC",
+  "dependencies": {
+    "await-to-js": "^3.0.0",
+    "dotenv": "^17.4.2",
+    "readline": "^1.3.0"
+  }
+}

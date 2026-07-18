@@ -1,0 +1,25 @@
+{
+  "name": "ai-tutorial",
+  "version": "0.1.0",
+  "description": "AI Study Guide",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lijiakof/ai-tutorial.git"
+  },
+  "author": "Jay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lijiakof/ai-tutorial/issues"
+  },
+  "homepage": "https://github.com/lijiakof/ai-tutorial#readme",
+  "workspaces": [
+    "packages/*"
+  ]
+}

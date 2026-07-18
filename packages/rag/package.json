@@ -1,0 +1,12 @@
+{
+  "name": "rag",
+  "version": "0.1.0",
+  "description": "RAG Study Guide",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jay",
+  "license": "ISC"
+}
