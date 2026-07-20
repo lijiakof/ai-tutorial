@@ -1,7 +1,7 @@
-import { calculator } from './calculator.js';
-import { currentTime } from './current-time.js';
-import { httpRequest } from './http-request.js';
-import { balance } from './balance.js';
+import calculator from './calculator.js';
+import currentTime from './current-time.js';
+import httpRequest from './http-request.js';
+import balance from './balance.js';
 
 const tools = [
   calculator,

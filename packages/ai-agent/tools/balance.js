@@ -1,6 +1,6 @@
 import { deepseekBalance } from '../models/deepseek.js';
 
-export const balance = {
+const balance = {
   definition: {
     name: 'balance',
     description: '获取余额'
@@ -11,3 +11,5 @@ export const balance = {
     return JSON.stringify(result);
   },
 };
+
+export default balance;

@@ -1,4 +1,4 @@
-export const currentTime = {
+const currentTime = {
   definition: {
     name: "current_time",
     description: "获取当前日期和时间，以及所在时区。不需要任何参数。",
@@ -25,3 +25,5 @@ export const currentTime = {
     });
   },
 };
+
+export default currentTime;

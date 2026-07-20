@@ -1,6 +1,6 @@
 import { to } from 'await-to-js';
 
-export const httpRequest = {
+const httpRequest = {
   definition: {
     name: 'http_request',
     description: '发送 HTTP GET 请求获取 URL 内容。用于获取 API 数据或网页内容。',
@@ -27,3 +27,5 @@ export const httpRequest = {
     return JSON.stringify({ url, status: result.status, content: truncated });
   },
 };
+
+export default httpRequest;

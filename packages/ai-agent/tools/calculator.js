@@ -1,4 +1,4 @@
-export const calculator = {
+const calculator = {
   definition: {
     name: 'calculator',
     description: "执行数学计算。支持加减乘除、乘方、三角函数等。输入一个数学表达式，返回计算结果。",
@@ -33,3 +33,5 @@ export const calculator = {
     }
   },
 };
+
+export default calculator;
