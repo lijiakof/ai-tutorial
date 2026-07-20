@@ -1,4 +1,4 @@
-import tools, { executeTool } from './tools/index.js';
+import tools from './tools/index.js';
 import deepseek from './models/deepseek.js';
 
 async function agentLoop(userPrompt) {
@@ -14,16 +14,8 @@ async function agentLoop(userPrompt) {
 
     const response = await deepseek({
       messages, 
-      tools: tools.map(tool => {
-      return {
-        type: 'function',
-        function: {
-          name: tool.definition.name,
-          description: tool.definition.description,
-          parameters: tool.definition.parameters,
-        }
-      }
-    })});
+      tools: tools.definition
+    });
 
     const resMessage = response.choices?.[0].message;
     let content = resMessage?.content;
@@ -33,7 +25,7 @@ async function agentLoop(userPrompt) {
       const toolCall = resMessage.tool_calls[0];
       const toolName = toolCall.function.name;
       const toolArgs = JSON.parse(toolCall.function.arguments);
-      const toolResult = await executeTool(toolName, toolArgs);
+      const toolResult = await tools.execute(toolName, toolArgs);
       content = toolResult;
       console.log(`Tool：${toolName}，Result：${toolResult}`)
 
