@@ -7,6 +7,14 @@
 
 ### AI Agent 与聊天机器人的区别
 
+| 特征 | AI Agent  | 聊天机器人 |
+|  ----  | ----  | ----  |
+| 工作方式  | 主动执行：用户设定目标，它自主规划并完成 | 被动响应：用户提问，它回答 |
+| 任务处理  | 处理复杂、多步骤的任务 | 处理简单、单步的指令 |
+| 规划能力  | 能自主将目标拆解为可执行的子任务 | 遵循预设的对话路径或规则 |
+| 工具使用  | 能动态调用外部工具，如搜索引擎、数据库、代码环境等 | 通常只能调用预设的简单 API |
+| 典型场景  |  |  |
+
 ## AI Agent 由哪些部分组成
 AI Agent 由这几个核心部分组成：
 - **ReAct Loop 模块**：通过一个迭代循环来工作，其典型轨迹由*思考（Thought）*、*行动（Action）* 和 *观察（Observation）* 三个关键步骤组成。核心目标是让AI模型从“被动应答者”升级为能主动与外部世界交互的“问题解决者”。
@@ -19,6 +27,7 @@ AI Agent 由这几个核心部分组成：
 
 ### LLM 接口简介
 先了解一下大模型的接口，这样才能为实现 AI Agent 打下基础，下面以 DeepSeek 的 API 为例。
+
 #### 简单对话
 
 ``` JavaScript
@@ -233,8 +242,63 @@ export default agentTool;
 
 
 ### LLM 调用模块
+大模型调用模块其实很简单，就是将各大模型厂商的 API 接口做一层封装，让 Agent 系统调用不同模型的方式是保持一致的。先简单用 DeepSeek 做一层封装。
 
-### 工具调用模块
+``` JavaScript
+import "dotenv/config";
+
+export default async function deepseek({ modelId = 'deepseek-v4-flash', messages, tools, temperature = 0.1}) {
+
+  const body = {
+    model: modelId,
+    messages,
+    tools,
+    temperature
+  };
+
+  const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.DEEPSEEK_API_KEY}`
+    },
+    body: JSON.stringify(body)
+  })
+  
+  return response.json();
+}
+```
+
+``` JavaScript
+import deepseek from './deepseek.js';
+import kimi from './kimi.js';
+
+async function callModel(model, params) {
+  const modelMap = {
+    'deepseek': deepseek,
+    'kimi': kimi
+  };
+
+  if (!modelMap[model]) {
+    throw new Error(`Unknown model: ${model}`);
+  }
+
+  return await modelMap[model](params);
+}
+```
+
+### 工具调用模块&执行模块
+工具的调用和执行分两部分：
+1. 工具的定义：将工具名称、入参、出参等定义提供给大模型，让大模型能够理解工具如何使用。
+2. 工具的执行：具体工具的执行，将对应的入参给到工具，工具运行完后给到执行后的结果。
+
+以下用数学计算工具为例子：
+
+``` JavaScript
+```
+
+``` JavaScript
+```
 
 ### ReAct Loop 模块
 

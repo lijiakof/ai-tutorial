@@ -1,9 +1,9 @@
 import "dotenv/config";
 
-export async function deepseek(messages, tools, temperature = 0.1) {
+export default async function deepseek({ modelId = 'deepseek-v4-flash', messages, tools, temperature = 0.1}) {
 
   const body = {
-    model: 'deepseek-v4-flash',
+    model: modelId,
     messages,
     tools,
     temperature

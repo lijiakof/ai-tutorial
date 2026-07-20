@@ -1,5 +1,5 @@
 import tools, { executeTool } from './tools/index.js';
-import {deepseek} from './models/deepseek.js';
+import deepseek from './models/deepseek.js';
 
 async function agentLoop(userPrompt) {
   const messages = [
@@ -12,7 +12,9 @@ async function agentLoop(userPrompt) {
   for (let i = 0; i < maxTurns; i++) {
     console.log(`Loop ${i + 1}:`);
 
-    const response = await deepseek(messages, tools.map(tool => {
+    const response = await deepseek({
+      messages, 
+      tools: tools.map(tool => {
       return {
         type: 'function',
         function: {
@@ -21,7 +23,7 @@ async function agentLoop(userPrompt) {
           parameters: tool.definition.parameters,
         }
       }
-    }));
+    })});
 
     const resMessage = response.choices?.[0].message;
     let content = resMessage?.content;
@@ -45,7 +47,7 @@ async function agentLoop(userPrompt) {
     }
   }
 
-  const finalResponse = await deepseek(messages);
+  const finalResponse = await deepseek({ messages });
   return finalResponse.choices?.[0]?.message?.content;
 }
 

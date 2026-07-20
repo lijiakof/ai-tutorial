@@ -11,7 +11,7 @@ const rl = readline.createInterface({
 });
 
 rl.on('line', (input) => {
-  agentTool(input).then(response => {
+  agentLoop(input).then(response => {
     console.log(`回答：${response}`);
   });
 });
