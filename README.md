@@ -7,3 +7,4 @@ AI 学习指南
 * LLM 原理（microgptjs https://gist.github.com/karpathy/8627fe009c40f57531cb18360106ce95）
   * https://github.com/assassindesign/microgptjs/blob/main/README.md
 * AI Coding
+* Skill
