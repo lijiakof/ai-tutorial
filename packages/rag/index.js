@@ -14,7 +14,12 @@ async function vectorStore() {
 
 async function vectorQuery(text) {
   console.log(`\n❓ 用户提问：${text}`);
-  return await query(text, indexPath);
+  const results = await query(text, indexPath);
+
+  console.log('🔍 检索到的相关片段：');
+  results.forEach((s, i) => console.log(`   [片段${i + 1}] ${s}`));
+
+  return results;
 }
 
 await vectorStore();
