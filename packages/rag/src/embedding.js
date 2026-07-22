@@ -7,14 +7,14 @@ export default async function embedding(chunkTexts, indexPath) {
   console.log('⏳ 正在加载嵌入模型（首次运行会下载约 30MB）...');
   const embedder = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
 
-  // 创建 vectra 索引存储
+  // 清理历史索引，每次向量化都从干净状态开始
   const index = new LocalIndex(indexPath);
-  if (!fs.existsSync(indexPath)) {
-    await index.createIndex();
-    console.log("📦 创建本地向量索引");
-  } else {
-    console.log("📂 加载已有向量索引");
+  if (fs.existsSync(indexPath)) {
+    console.log('🧹 清理历史向量索引...');
+    fs.rmSync(indexPath, { recursive: true, force: true });
   }
+  await index.createIndex();
+  console.log('📦 创建本地向量索引');
 
   console.log('💾 正在将文档块向量化并存入数据库...');
   for (let i = 0; i < chunkTexts.length; i++) {

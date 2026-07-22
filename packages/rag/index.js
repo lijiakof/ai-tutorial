@@ -7,7 +7,8 @@ const indexPath = './rag-index';
 const documentText = fs.readFileSync('./data/doc.txt', 'utf-8');
 
 async function vectorStore() {
-  console.log(`📄 文档内容：\n${documentText}\n`);
+  const preview = documentText.length > 50 ? documentText.slice(0, 50) + '...' : documentText;
+  console.log(`📄 文档内容（前50字）：\n${preview}\n`);
   const tunkTexts = await splitter(documentText);
   await embedding(tunkTexts, indexPath);
 }
