@@ -31,10 +31,10 @@ async function agentLoop(userPrompt) {
 
       // messages.push({ role: 'tool', tool_call_id: toolCall.id, content: toolResult });
       messages.push({ role: 'assistant', content: toolResult });
-      console.log(`${"═".repeat(60)}`);
+      console.log(`${"-".repeat(60)}`);
     }
     else {
-      console.log(`${"═".repeat(60)}`);
+      console.log(`${"-".repeat(60)}`);
       break;
     }
   }

@@ -13,6 +13,7 @@ const rl = readline.createInterface({
 rl.on('line', (input) => {
   agentLoop(input).then(response => {
     console.log(`回答：${response}`);
+    console.log(`${"═".repeat(60)}`);
   });
 });
 
