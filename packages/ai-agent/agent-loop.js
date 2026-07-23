@@ -18,7 +18,7 @@ async function agentLoop(userPrompt) {
     });
 
     const resMessage = response.choices?.[0].message;
-    let content = resMessage?.content;
+    // let content = resMessage?.content;
 
     console.log(`Thought：${resMessage?.reasoning_content}`)
     if (resMessage?.tool_calls && resMessage.tool_calls.length > 0) {
@@ -26,7 +26,7 @@ async function agentLoop(userPrompt) {
       const toolName = toolCall.function.name;
       const toolArgs = JSON.parse(toolCall.function.arguments);
       const toolResult = await tools.execute(toolName, toolArgs);
-      content = toolResult;
+      // content = toolResult;
       console.log(`Tool：${toolName}，Result：${toolResult}`)
 
       // messages.push({ role: 'tool', tool_call_id: toolCall.id, content: toolResult });
