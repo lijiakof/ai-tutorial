@@ -1,11 +1,13 @@
 import tools from './tools/index.js';
 import deepseek from './models/deepseek.js';
 
+const messages = [
+  { role: 'system', content: '你是一个智能助手，能够使用工具来完成任务。' },
+];
+
 async function agentLoop(userPrompt) {
-  const messages = [
-    { role: 'system', content: '你是一个智能助手，能够使用工具来完成任务。' },
-    { role: 'user', content: userPrompt },
-  ];
+  messages.push({ role: 'user', content: userPrompt });
+  console.log(messages);
 
   const maxTurns = 10;
 
@@ -29,6 +31,7 @@ async function agentLoop(userPrompt) {
       // content = toolResult;
       console.log(`Tool：${toolName}，Result：${toolResult}`)
 
+      // TODO: 这里可以根据需要将工具调用结果作为新的消息添加到消息列表中，或者直接返回结果给用户
       // messages.push({ role: 'tool', tool_call_id: toolCall.id, content: toolResult });
       messages.push({ role: 'assistant', content: toolResult });
       console.log(`${"-".repeat(60)}`);
@@ -40,7 +43,10 @@ async function agentLoop(userPrompt) {
   }
 
   const finalResponse = await deepseek({ messages });
-  return finalResponse.choices?.[0]?.message?.content;
+  const finalMessage = finalResponse.choices?.[0].message;
+  messages.push(finalMessage);
+
+  return finalMessage?.content;
 }
 
 export default agentLoop;
