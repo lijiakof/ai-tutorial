@@ -23,5 +23,14 @@ async function vectorQuery(text) {
   return results;
 }
 
-await vectorStore();
-await vectorQuery('任天堂是什么样的公司');
+const args = process.argv.slice(2);
+
+if (args.includes('-vector')) {
+  await vectorStore();
+} else if (args[0] === '-query' && args[1]) {
+  await vectorQuery(args[1]);
+} else {
+  console.log('用法:');
+  console.log('  node index.js -vector          向量化文档');
+  console.log('  node index.js -query <问题>     检索查询');
+}
