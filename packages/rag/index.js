@@ -24,4 +24,4 @@ async function vectorQuery(text) {
 }
 
 await vectorStore();
-await vectorQuery('什么是 RAG？');
+await vectorQuery('任天堂是什么样的公司');
